@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner, faMagnifyingGlass, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 import { useEffect, useState } from 'react';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -56,6 +56,20 @@ function Header() {
           <Button primary medium>
             Login
           </Button>
+
+          <Tippy
+            render={(attrs) => (
+              <div className={cx('menu-items')} tabIndex="-1" {...attrs}>
+                <PopperWrapper>text</PopperWrapper>
+              </div>
+            )}
+            interactive
+            placement="bottom-end"
+          >
+            <button className={cx('more-btn')}>
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+            </button>
+          </Tippy>
         </div>
       </div>
     </div>
