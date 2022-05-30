@@ -4,15 +4,19 @@ import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
 function Header() {
   const [searchResult, setSearchResult] = useState(['ádf']);
 
+  useEffect(() => {
+    setSearchResult(['asdad']);
+  }, []);
   return (
     <div className={cx('wrapper')}>
       <div className={cx('inner')}>
@@ -32,7 +36,7 @@ function Header() {
           interactive={true}
         >
           <div className={cx('search')}>
-            <input placeholder="Search account and video" spellcheck={false} />
+            <input placeholder="Search account and video" spellCheck={false} />
             <button className={cx('clear')}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
@@ -45,7 +49,14 @@ function Header() {
           </div>
         </Tippy>
 
-        <div className={cx('actions')}></div>
+        <div className={cx('actions')}>
+          <Button text medium>
+            Upload
+          </Button>
+          <Button primary medium>
+            Login
+          </Button>
+        </div>
       </div>
     </div>
   );
