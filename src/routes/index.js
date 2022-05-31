@@ -21,9 +21,8 @@ const publicRoutes = [
     layout: HeaderOnly,
   },
   {
-    path: '/profile',
+    path: '/@:nickname',
     component: Profile,
-    layout: null,
   },
 ];
 const privateRoutes = [];
