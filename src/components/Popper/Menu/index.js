@@ -1,4 +1,4 @@
-import Tippy from '@tippyjs/react/headless';
+import HeadlessTippy from '@tippyjs/react/headless';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
@@ -33,10 +33,7 @@ function Menu({ children, items = [], onChange = () => {} }) {
   };
 
   return (
-    <Tippy
-      interactive
-      placement="bottom-end"
-      delay={[200, 200]}
+    <HeadlessTippy
       render={(attrs) => (
         <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
           <PopperWrapper>
@@ -53,9 +50,16 @@ function Menu({ children, items = [], onChange = () => {} }) {
           </PopperWrapper>
         </div>
       )}
+      interactive
+      placement="bottom-end"
+      delay={[200, 200]}
+      offset={[12, 8]}
+      onHide={() => {
+        setHistory((prev) => prev.slice(0, 1));
+      }}
     >
       {children}
-    </Tippy>
+    </HeadlessTippy>
   );
 }
 

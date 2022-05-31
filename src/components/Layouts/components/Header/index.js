@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import Tippy from '@tippyjs/react/headless';
+import HeadlessTippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleXmark,
@@ -9,6 +11,11 @@ import {
   faEarthAsia,
   faKeyboard,
   faCircleQuestion,
+  faCloudUpload,
+  faMessage,
+  faCoins,
+  faGear,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 
@@ -18,6 +25,8 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
+import { UploadIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
@@ -51,6 +60,7 @@ const MENU_ITEMS = [
 
 function Header() {
   const [searchResult, setSearchResult] = useState(['ádf']);
+  const [currentUser, setCurrentUser] = useState(true);
 
   useEffect(() => {
     setSearchResult(['asdad']);
@@ -59,12 +69,37 @@ function Header() {
   const handleMenuChange = (onChange) => {
     console.log(onChange);
   };
+
+  const userMenu = [
+    {
+      icon: <FontAwesomeIcon icon={faUser} />,
+      title: 'View profile',
+      to: '/profile',
+    },
+    {
+      icon: <FontAwesomeIcon icon={faCoins} />,
+      title: 'Get Coins',
+      to: '/coins',
+    },
+    {
+      icon: <FontAwesomeIcon icon={faGear} />,
+      title: 'Settings',
+      to: '/settings',
+    },
+    ...MENU_ITEMS,
+    {
+      icon: <FontAwesomeIcon icon={faGear} />,
+      title: 'Log out',
+      to: '/settings',
+      separate: true,
+    },
+  ];
   return (
     <div className={cx('wrapper')}>
       <div className={cx('inner')}>
         <img src={images.logo} alt="logo" />
 
-        <Tippy
+        <HeadlessTippy
           render={(attrs) => (
             <div className={cx('search-result')} tabIndex="-1" {...attrs}>
               <PopperWrapper>
@@ -89,20 +124,39 @@ function Header() {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>
-        </Tippy>
+        </HeadlessTippy>
 
         <div className={cx('actions')}>
-          <Button text medium>
-            Upload
-          </Button>
-          <Button primary medium>
-            Login
-          </Button>
+          {currentUser ? (
+            <>
+              <Tippy content={<span>Upload video</span>} placement="bottom">
+                <button className={cx('action-btn')}>
+                  <UploadIcon />
+                </button>
+              </Tippy>
+              <button className={cx('action-btn')}>
+                <FontAwesomeIcon icon={faMessage} />
+              </button>
+            </>
+          ) : (
+            <>
+              <Button text medium>
+                Upload
+              </Button>
+              <Button primary medium>
+                Login
+              </Button>
+            </>
+          )}
 
-          <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-            <button className={cx('more-btn')}>
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </button>
+          <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+            {currentUser ? (
+              <Image src="assets/images/logo.svg" className={cx('user-avatar')} alt="userName" />
+            ) : (
+              <button className={cx('more-btn')}>
+                <FontAwesomeIcon icon={faEllipsisVertical} />
+              </button>
+            )}
           </Menu>
         </div>
       </div>
