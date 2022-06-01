@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
+import { useDebounce } from '~/hooks';
 import { SearchIcon } from '~/components/Icons';
 
 import classNames from 'classnames/bind';
@@ -17,16 +18,18 @@ function Search() {
   const [showResult, setShowResult] = useState(true);
   const [loadingSearch, setLoadingSearch] = useState(false);
 
-  const inputRef = useRef();
+  const lastSearchValue = useDebounce(searchValue, 500);
+
+  const searchInputRef = useRef();
 
   useEffect(() => {
-    if (!searchValue.trim()) {
+    if (!lastSearchValue.trim()) {
       setSearchResult([]);
       return;
     }
 
     setLoadingSearch(true);
-    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(lastSearchValue)}&type=less`)
       .then((res) => res.json())
       .then((res) => {
         setSearchResult(res.data);
@@ -35,12 +38,12 @@ function Search() {
       .catch((err) => {
         setLoadingSearch(false);
       });
-  }, [searchValue]);
+  }, [lastSearchValue]);
 
   const handleClearSearch = () => {
     setSearchValue('');
     setSearchResult([]);
-    inputRef.current.focus();
+    searchInputRef.current.focus();
   };
 
   const handleHideResult = () => {
@@ -67,7 +70,7 @@ function Search() {
       >
         <div className={cx('search')}>
           <input
-            ref={inputRef}
+            ref={searchInputRef}
             value={searchValue}
             placeholder="Search account and video"
             spellCheck={false}
