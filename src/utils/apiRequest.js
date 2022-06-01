@@ -1,15 +1,15 @@
 import axios from 'axios';
-
-const instance = axios.create({
-  baseURL: 'https://tiktok.fullstack.edu.vn/api/',
+console.log(process.env);
+const apiRequest = axios.create({
+  baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 5000,
 });
 
-// instance.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+// apiRequest.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 export const get = async (path, options = {}) => {
   try {
-    const res = await instance.get(path, options);
+    const res = await apiRequest.get(path, options);
 
     return res.data;
   } catch (error) {
@@ -20,9 +20,9 @@ export const get = async (path, options = {}) => {
 };
 
 export const post = async (path, body, options = {}) => {
-  const res = await instance.post(path, body, options);
+  const res = await apiRequest.post(path, body, options);
 
   return res.data;
 };
 
-export default instance;
+export default apiRequest;
