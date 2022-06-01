@@ -46,7 +46,7 @@ function Menu({ children, items = [], onChange = () => {} }) {
               />
             )}
 
-            {renderItems()}
+            <div className={cx('menu-body')}>{renderItems()}</div>
           </PopperWrapper>
         </div>
       )}
@@ -57,6 +57,8 @@ function Menu({ children, items = [], onChange = () => {} }) {
       onHide={() => {
         setHistory((prev) => prev.slice(0, 1));
       }}
+      hideOnClick={false}
+      visible={true}
     >
       {children}
     </HeadlessTippy>
