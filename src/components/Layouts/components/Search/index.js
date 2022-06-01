@@ -6,6 +6,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { useDebounce } from '~/hooks';
 import { SearchIcon } from '~/components/Icons';
+import * as searchService from '~/apiServices/searchServices';
 
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
@@ -28,16 +29,41 @@ function Search() {
       return;
     }
 
+    // setLoadingSearch(true);
+    // fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(lastSearchValue)}&type=less`)
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     setSearchResult(res.data);
+    //     setLoadingSearch(false);
+    //   })
+    //   .catch((err) => {
+    //     setLoadingSearch(false);
+    //   });
+
+    // axios
+    //   .get('https://tiktok.fullstack.edu.vn/api/users/search', {
+    //     params: {
+    //       q: encodeURIComponent(lastSearchValue),
+    //       type: 'less',
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   });
+
     setLoadingSearch(true);
-    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(lastSearchValue)}&type=less`)
-      .then((res) => res.json())
-      .then((res) => {
+    const fetchApi = async () => {
+      try {
+        const res = await searchService.search(lastSearchValue);
         setSearchResult(res.data);
         setLoadingSearch(false);
-      })
-      .catch((err) => {
+      } catch (error) {
         setLoadingSearch(false);
-      });
+        throw new Error(error);
+      }
+    };
+
+    fetchApi();
   }, [lastSearchValue]);
 
   const handleClearSearch = () => {
@@ -50,7 +76,6 @@ function Search() {
     setShowResult(false);
   };
 
-  const handleSelectSearch = () => {};
   return (
     <div>
       <HeadlessTippy
