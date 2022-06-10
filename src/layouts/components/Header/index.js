@@ -23,6 +23,7 @@ import config from '~/config';
 
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
+import routes from '~/config/routes';
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
@@ -65,17 +66,17 @@ function Header() {
     {
       icon: <FontAwesomeIcon icon={faUser} />,
       title: 'View profile',
-      to: '/profile',
+      to: routes.profile,
     },
     {
       icon: <FontAwesomeIcon icon={faCoins} />,
       title: 'Get Coins',
-      to: '/coins',
+      to: routes.upload,
     },
     {
       icon: <FontAwesomeIcon icon={faGear} />,
       title: 'Settings',
-      to: '/settings',
+      to: routes.following,
     },
     ...MENU_ITEMS,
     {
