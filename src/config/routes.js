@@ -1,8 +1,9 @@
 const routes = {
-  home: '/',
-  following: '/following',
-  profile: '/@:nickname',
-  upload: '/upload',
+  home: '/tiktok-web/',
+  following: '/tiktok-web/following',
+  profile: '/tiktok-web/@:nickname',
+  upload: '/tiktok-web/upload',
+  notFound: '*',
 };
 
 export default routes;

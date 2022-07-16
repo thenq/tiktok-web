@@ -25,6 +25,10 @@ const publicRoutes = [
     path: config.routes.nickname,
     component: Profile,
   },
+  {
+    path: config.routes.notFound,
+    component: Home,
+  },
 ];
 const privateRoutes = [];
 
