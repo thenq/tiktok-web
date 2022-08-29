@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -57,6 +57,9 @@ const MENU_ITEMS = [
 function Header() {
   const [currentUser, setCurrentUser] = useState(true);
 
+  useEffect(() => {
+    setCurrentUser({});
+  }, []);
   const handleMenuChange = (onChange) => {
     console.log(onChange);
   };
