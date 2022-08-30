@@ -38,7 +38,7 @@ function Sidebar() {
         <AccountList label="Suggested Accounts" />
       </div>
       <div className={cx('menu-block')}>
-        <AccountList label="Following Accounts" />
+        <AccountList label="Following Accounts" isDisablePopover={true} />
       </div>
     </aside>
   )

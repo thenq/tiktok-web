@@ -1,4 +1,5 @@
 .wrapper {
+  cursor: pointer;
 }
 
 .label {
@@ -50,4 +51,40 @@
   font-size: 1.4rem;
   font-weight: 600;
   line-height: 20px;
+}
+
+.popover-container {
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 260px;
+}
+
+.popover-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popover-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popover-container .user-info {
+  margin-left: 0;
+}
+
+.analytics {
+  font-size: 1.8rem;
+}
+
+.value ~ .value {
+  margin-left: 20px;
+}
+
+.label {
+  font-size: 1.2rem;
+  font-weight: 400;
 }

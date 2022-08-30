@@ -5,11 +5,11 @@ import styles from './AccountList.module.scss'
 
 const cx = classNames.bind(styles)
 
-function AccountList({ label }) {
+function AccountList({ label, isDisablePopover = false }) {
   return (
     <div className={cx('wrapper')}>
       <p className={cx('label')}>{label}</p>
-      <AccountItem />
+      <AccountItem isDisablePopover={isDisablePopover} />
 
       <div className={cx('load-more')}>See all</div>
     </div>
